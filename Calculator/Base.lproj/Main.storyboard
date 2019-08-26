@@ -287,6 +287,7 @@
                         <viewLayoutGuide key="safeArea" id="C3i-7s-JDL"/>
                     </view>
                     <connections>
+                        <outlet property="clearBtn" destination="EWb-JU-7pK" id="eIh-SC-NQS"/>
                         <outlet property="viewBox" destination="oEM-BE-NIo" id="gP9-B7-ZX7"/>
                     </connections>
                 </viewController>

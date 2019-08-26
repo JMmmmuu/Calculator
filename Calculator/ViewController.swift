@@ -10,8 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var viewBox: UILabel!
+    @IBOutlet weak var clearBtn: UIButton!
     var resultInStr: String = ""
     var isPositive: Bool = true
+    var titleOfClearButton: String {
+        get {
+            if resultInStr.count > 0 {
+                return "C"
+            } else {
+                return "AC"
+            }
+        }
+        set {
+            clearBtn.setTitle(newValue, for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +95,11 @@ class ViewController: UIViewController {
     
     // MARK: - etc button
     @IBAction func clearButton(_ sender: UIButton) {
+        resultInStr = ""
+        isPositive = true
+        viewBox.text = "0"
+        
+        titleOfClearButton = "AC"
     }
     @IBAction func toggleSign(_ sender: UIButton) {
         isPositive = !isPositive
@@ -115,9 +133,7 @@ class ViewController: UIViewController {
         }
         viewBox.text = resultInStr
         
-        if resultInStr == "" {
-            
-        }
+        clearBtn.setTitle(titleOfClearButton, for: .normal)
     }
 }
 
