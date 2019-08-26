@@ -267,6 +267,9 @@
                                                 <state key="normal" title="=">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="calculateResult:" destination="9Is-XS-FY6" eventType="touchUpInside" id="kdO-ba-WPR"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>

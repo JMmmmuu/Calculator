@@ -26,6 +26,11 @@ class ViewController: UIViewController {
         }
     }
     
+    var previousValue: Double = 0
+    var currentValue: Double = 0
+    var arithmetic: String?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -85,18 +90,64 @@ class ViewController: UIViewController {
     
     // MARK: - Arithmetic
     @IBAction func plusButton(_ sender: UIButton) {
+        previousValue = Double(resultInStr)!
+        resetData()
+        arithmetic = "plus"
+        
     }
     @IBAction func minusButton(_ sender: UIButton) {
+        previousValue = Double(resultInStr)!
+        resetData()
+        arithmetic = "minus"
+
     }
     @IBAction func multiplyButton(_ sender: UIButton) {
+        previousValue = Double(resultInStr)!
+        resetData()
+        arithmetic = "multiplication"
+
     }
     @IBAction func divisionButton(_ sender: UIButton) {
+        previousValue = Double(resultInStr)!
+        resetData()
+        arithmetic = "division"
+
+    }
+    @IBAction func calculateResult(_ sender: UIButton) {
+        if let whichAritmetic = arithmetic {
+            currentValue = Double(resultInStr)!
+            var result: Double = 0
+            switch whichAritmetic {
+                case "plus":
+                    result = previousValue + currentValue
+                
+                case "minus":
+                    result = previousValue - currentValue
+                case "multiplication":
+                    result = previousValue * currentValue
+                case "division":
+                    if currentValue == 0 {
+                        print("Error")
+                    } else {
+                        result = previousValue / currentValue
+                    }
+                default:
+                    print("HOHO")
+            }
+            if floor(result) == result {
+                viewBox.text = String(Int(result))
+            } else {
+                viewBox.text = String(result)
+            }
+            resetData()
+            previousValue = 0
+            currentValue = 0
+        }
     }
     
     // MARK: - etc button
     @IBAction func clearButton(_ sender: UIButton) {
-        resultInStr = ""
-        isPositive = true
+        resetData()
         viewBox.text = "0"
         
         titleOfClearButton = "AC"
@@ -129,11 +180,18 @@ class ViewController: UIViewController {
                 resultInStr.remove(at: resultInStr.startIndex)
             }
         } else {
-            resultInStr.insert("-", at: resultInStr.startIndex)
+            if resultInStr.first != "-" {
+                resultInStr.insert("-", at: resultInStr.startIndex)
+            }
         }
         viewBox.text = resultInStr
         
         clearBtn.setTitle(titleOfClearButton, for: .normal)
+    }
+    
+    func resetData() {
+        resultInStr = ""
+        isPositive = true
     }
 }
 
