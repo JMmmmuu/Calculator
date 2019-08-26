@@ -27,7 +27,6 @@ class ViewController: UIViewController {
     }
     
     var previousValue: Double = 0
-    var currentValue: Double = 0
     var arithmetic: String?
     
     
@@ -115,33 +114,33 @@ class ViewController: UIViewController {
     }
     @IBAction func calculateResult(_ sender: UIButton) {
         if let whichAritmetic = arithmetic {
-            currentValue = Double(resultInStr)!
-            var result: Double = 0
-            switch whichAritmetic {
-                case "plus":
-                    result = previousValue + currentValue
-                
-                case "minus":
-                    result = previousValue - currentValue
-                case "multiplication":
-                    result = previousValue * currentValue
-                case "division":
-                    if currentValue == 0 {
-                        print("Error")
-                    } else {
-                        result = previousValue / currentValue
-                    }
-                default:
-                    print("HOHO")
+            if let currentValue = Double(resultInStr) {
+                var result: Double = 0
+                switch whichAritmetic {
+                    case "plus":
+                        result = previousValue + currentValue
+                    
+                    case "minus":
+                        result = previousValue - currentValue
+                    case "multiplication":
+                        result = previousValue * currentValue
+                    case "division":
+                        if currentValue == 0 {
+                            print("Error")
+                        } else {
+                            result = previousValue / currentValue
+                        }
+                    default:
+                        print("HOHO")
+                }
+                if floor(result) == result {
+                    viewBox.text = String(Int(result))
+                } else {
+                    viewBox.text = String(result)
+                }
+                resetData()
+                previousValue = 0
             }
-            if floor(result) == result {
-                viewBox.text = String(Int(result))
-            } else {
-                viewBox.text = String(result)
-            }
-            resetData()
-            previousValue = 0
-            currentValue = 0
         }
     }
     
