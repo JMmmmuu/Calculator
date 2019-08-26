@@ -59,7 +59,17 @@ class ViewController: UIViewController {
         resultInStr.append("9")
         updateResult()
     }
- 
+    @IBAction func pointButton(_ sender: UIButton) {
+        if !resultInStr.contains(".") {
+            if resultInStr == "" {
+                resultInStr.append("0.")
+            } else {
+                resultInStr.append(".")
+            }
+        }
+        updateResult()
+    }
+    
     // MARK: - Arithmetic
     @IBAction func plusButton(_ sender: UIButton) {
     }
@@ -74,9 +84,16 @@ class ViewController: UIViewController {
     @IBAction func clearButton(_ sender: UIButton) {
     }
     @IBAction func toggleSign(_ sender: UIButton) {
+        isPositive = !isPositive
+        updateResult()
     }
     @IBAction func makePercentage(_ sender: UIButton) {
-        
+        if resultInStr != "" {
+            if let number = Double(resultInStr) {
+                resultInStr = String(number / 100)
+            }
+        }
+        updateResult()
     }
     
     
@@ -86,13 +103,21 @@ class ViewController: UIViewController {
     
     
     func updateResult() {
-        if resultInStr.count > 9 {
+        if resultInStr.count > 12 {
             resultInStr = String(resultInStr.dropLast())
         }
-        if !isPositive {
+        if isPositive {
+            if resultInStr.first == "-" {
+                resultInStr.remove(at: resultInStr.startIndex)
+            }
+        } else {
             resultInStr.insert("-", at: resultInStr.startIndex)
         }
         viewBox.text = resultInStr
+        
+        if resultInStr == "" {
+            
+        }
     }
 }
 
